@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全渠道销售综合看板 - 万象</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Noto Sans SC', sans-serif; }
+        body { background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%); min-height: 100vh; }
+        .glass-card { background: rgba(255,255,255,0.85); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.5); box-shadow: 0 4px 24px rgba(0,0,0,0.04); }
+        .metric-card { background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%); border: 1px solid rgba(226,232,240,0.8); transition: all 0.3s ease; }
+        .metric-card:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,0.08); }
+        .gradient-text { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .rank-badge { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 8px; font-weight: 700; font-size: 13px; }
+        .rank-1 { background: linear-gradient(135deg, #ffd700 0%, #ffb700 100%); color: #744210; }
+        .rank-2 { background: linear-gradient(135deg, #c0c0c0 0%, #a0a0a0 100%); color: #4a5568; }
+        .rank-3 { background: linear-gradient(135deg, #cd7f32 0%, #b87333 100%); color: #744210; }
+        .rank-other { background: #e2e8f0; color: #64748b; }
+        .trend-up { color: #10b981; }
+        .trend-down { color: #ef4444; }
+        .animate-fade-in { animation: fadeIn 0.6s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 3px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+    </style>
+</head>
+<body class="text-slate-700">
+    <div class="fixed left-0 top-0 h-full w-64 glass-card z-50">
+        <div class="p-6">
+            <div class="flex items-center gap-3 mb-10">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <span class="text-xl font-bold gradient-text">万象</span>
+            </div>
+            <nav class="space-y-2">
+                <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-lg shadow-indigo-200">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                    <span class="font-medium">销售总览</span>
+                </a>
+            </nav>
+        </div>
+    </div>
+
+    <div class="ml-64 p-8">
+        <div class="flex items-center justify-between mb-8">
+            <div>
+                <h1 class="text-2xl font-bold text-slate-800">销售总览</h1>
+                <p class="text-slate-500 text-sm mt-1">实时数据更新至 2026年5月7日 14:30</p>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="flex items-center gap-2 px-4 py-2 glass-card rounded-xl">
+                    <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                    <select class="bg-transparent text-sm font-medium text-slate-700 outline-none cursor-pointer">
+                        <option>全部店铺</option><option>抖音旗舰店</option><option>天猫旗舰店</option>
+                    </select>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-400 to-purple-500 flex items-center justify-center text-white font-semibold">小</div>
+                    <span class="font-medium text-slate-700">小福</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-3 mb-6">
+            <button class="px-4 py-2 rounded-lg text-sm font-medium text-slate-600 hover:bg-white hover:shadow-sm transition-all">最近30日</button>
+            <button class="px-4 py-2 rounded-lg text-sm font-medium text-slate-600 hover:bg-white hover:shadow-sm transition-all">年</button>
+            <button class="px-4 py-2 rounded-lg text-sm font-medium text-white bg-gradient-to-r from-indigo-500 to-purple-600 shadow-lg shadow-indigo-200">月</button>
+            <button class="px-4 py-2 rounded-lg text-sm font-medium text-slate-600 hover:bg-white hover:shadow-sm transition-all">周</button>
+            <button class="px-4 py-2 rounded-lg text-sm font-medium text-slate-600 hover:bg-white hover:shadow-sm transition-all">昨天</button>
+            <button class="px-4 py-2 rounded-lg text-sm font-medium text-slate-600 hover:bg-white hover:shadow-sm transition-all">今天</button>
+            <div class="flex items-center gap-2 px-4 py-2 glass-card rounded-lg">
+                <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                <span class="text-sm font-medium text-slate-700">2026年05月</span>
+            </div>
+            <button class="px-4 py-2 rounded-lg text-sm font-medium text-slate-600 hover:bg-white hover:shadow-sm transition-all">自定义</button>
+        </div>
+
+        <!-- 核心指标卡片 -->
+        <div class="grid grid-cols-6 gap-4 mb-6">
+            <div class="metric-card rounded-2xl p-5 animate-fade-in" style="animation-delay:0s;">
+                <div class="flex items-center justify-between mb-3"><span class="text-sm text-slate-500 font-medium">总销售额</span><div class="w-8 h-8 rounded-lg bg-indigo-50 flex items-center justify-center"><svg class="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div></div>
+                <div class="text-2xl font-bold text-slate-800 mb-1">¥305,814</div>
+                <div class="flex items-center gap-1 text-xs"><span class="trend-up flex items-center"><svg class="w-3 h-3 mr-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>12.5%</span><span class="text-slate-400">环比</span></div>
+            </div>
+            <div class="metric-card rounded-2xl p-5 animate-fade-in" style="animation-delay:0.1s;">
+                <div class="flex items-center justify-between mb-3"><span class="text-sm text-slate-500 font-medium">总订单数</span><div class="w-8 h-8 rounded-lg bg-emerald-50 flex items-center justify-center"><svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg></div></div>
+                <div class="text-2xl font-bold text-slate-800 mb-1">1,127</div>
+                <div class="flex items-center gap-1 text-xs"><span class="trend-up flex items-center"><svg class="w-3 h-3 mr-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>8.3%</span><span class="text-slate-400">环比</span></div>
+            </div>
+            <div class="metric-card rounded-2xl p-5 animate-fade-in" style="animation-delay:0.2s;">
+                <div class="flex items-center justify-between mb-3"><span class="text-sm text-slate-500 font-medium">总件数</span><div class="w-8 h-8 rounded-lg bg-amber-50 flex items-center justify-center"><svg class="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg></div></div>
+                <div class="text-2xl font-bold text-slate-800 mb-1">1,195</div>
+                <div class="flex items-center gap-1 text-xs"><span class="trend-up flex items-center"><svg class="w-3 h-3 mr-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>5.7%</span><span class="text-slate-400">环比</span></div>
+            </div>
+            <div class="metric-card rounded-2xl p-5 animate-fade-in" style="animation-delay:0.3s;">
+                <div class="flex items-center justify-between mb-3"><span class="text-sm text-slate-500 font-medium">退款金额</span><div class="w-8 h-8 rounded-lg bg-rose-50 flex items-center justify-center"><svg class="w-4 h-4 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg></div></div>
+                <div class="text-2xl font-bold text-slate-800 mb-1">¥90,108</div>
+                <div class="flex items-center gap-1 text-xs"><span class="trend-down flex items-center"><svg class="w-3 h-3 mr-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>2.1%</span><span class="text-slate-400">环比</span></div>
+            </div>
+            <div class="metric-card rounded-2xl p-5 animate-fade-in" style="animation-delay:0.4s;">
+                <div class="flex items-center justify-between mb-3"><span class="text-sm text-slate-500 font-medium">实付金额</span><div class="w-8 h-8 rounded-lg bg-cyan-50 flex items-center justify-center"><svg class="w-4 h-4 text-cyan-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div></div>
+                <div class="text-2xl font-bold text-slate-800 mb-1">¥215,707</div>
+                <div class="flex items-center gap-1 text-xs"><span class="trend-up flex items-center"><svg class="w-3 h-3 mr-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>15.2%</span><span class="text-slate-400">环比</span></div>
+            </div>
+            <div class="metric-card rounded-2xl p-5 animate-fade-in border-2 border-indigo-100" style="animation-delay:0.5s;">
+                <div class="flex items-center justify-between mb-3"><span class="text-sm text-slate-500 font-medium">客单价</span><div class="w-8 h-8 rounded-lg bg-violet-50 flex items-center justify-center"><svg class="w-4 h-4 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg></div></div>
+                <div class="text-2xl font-bold text-slate-800 mb-1">¥191</div>
+                <div class="flex items-center gap-1 text-xs"><span class="trend-up flex items-center"><svg class="w-3 h-3 mr-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>6.4%</span><span class="text-slate-400">环比</span></div>
+            </div>
+        </div>
+
+        <!-- 退款率趋势 -->
+        <div class="glass-card rounded-2xl p-6 mb-6 animate-fade-in" style="animation-delay:0.6s;">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-bold text-slate-800">退款率趋势</h3>
+                <div class="flex items-center gap-4">
+                    <div class="flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-rose-400"></div><span class="text-sm text-slate-500">退款率</span></div>
+                    <div class="flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-indigo-400"></div><span class="text-sm text-slate-500">销售额</span></div>
+                </div>
+            </div>
+            <div style="height:200px;"><canvas id="refundTrendChart"></canvas></div>
+        </div>
+
+        <!-- 渠道销售结构 + 客户结构 -->
+        <div class="grid grid-cols-2 gap-6 mb-6">
+            <div class="glass-card rounded-2xl p-6 animate-fade-in" style="animation-delay:0.7s;">
+                <h3 class="text-lg font-bold text-slate-800 mb-4">渠道销售结构</h3>
+                <div class="flex items-center gap-8">
+                    <div style="width:200px;height:200px;"><canvas id="channelChart"></canvas></div>
+                    <div class="flex-1 space-y-3">
+                        <div class="flex items-center justify-between p-3 rounded-xl bg-gradient-to-r from-indigo-50 to-transparent"><div class="flex items-center gap-3"><div class="w-3 h-3 rounded-full bg-indigo-500"></div><span class="font-medium text-slate-700">自播</span></div><div class="text-right"><div class="font-bold text-slate-800">¥152,907</div><div class="text-xs text-slate-500">50.0% · 退货率 <span class="text-rose-500 font-medium">18.2%</span></div></div></div>
+                        <div class="flex items-center justify-between p-3 rounded-xl bg-gradient-to-r from-rose-50 to-transparent"><div class="flex items-center gap-3"><div class="w-3 h-3 rounded-full bg-rose-400"></div><span class="font-medium text-slate-700">达播</span></div><div class="text-right"><div class="font-bold text-slate-800">¥122,326</div><div class="text-xs text-slate-500">40.0% · 退货率 <span class="text-rose-500 font-medium">35.6%</span></div></div></div>
+                        <div class="flex items-center justify-between p-3 rounded-xl bg-gradient-to-r from-cyan-50 to-transparent"><div class="flex items-center gap-3"><div class="w-3 h-3 rounded-full bg-cyan-400"></div><span class="font-medium text-slate-700">商城</span></div><div class="text-right"><div class="font-bold text-slate-800">¥30,581</div><div class="text-xs text-slate-500">10.0% · 退货率 <span class="text-rose-500 font-medium">12.4%</span></div></div></div>
+                    </div>
+                </div>
+            </div>
+            <div class="glass-card rounded-2xl p-6 animate-fade-in" style="animation-delay:0.8s;">
+                <h3 class="text-lg font-bold text-slate-800 mb-4">客户结构分析</h3>
+                <div class="grid grid-cols-2 gap-6">
+                    <div>
+                        <div class="text-sm text-slate-500 mb-3">新老客占比</div>
+                        <div style="height:150px;"><canvas id="customerTypeChart"></canvas></div>
+                        <div class="flex justify-center gap-6 mt-3">
+                            <div class="flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-indigo-500"></div><span class="text-sm text-slate-600">新客 65%</span></div>
+                            <div class="flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-emerald-400"></div><span class="text-sm text-slate-600">老客 35%</span></div>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="p-4 rounded-xl bg-slate-50"><div class="text-sm text-slate-500 mb-1">复购率</div><div class="text-2xl font-bold text-slate-800">35.2%</div><div class="text-xs text-emerald-500 mt-1">↑ 3.5% 环比</div></div>
+                        <div class="p-4 rounded-xl bg-slate-50"><div class="text-sm text-slate-500 mb-1">人均购买件数</div><div class="text-2xl font-bold text-slate-800">1.06</div><div class="text-xs text-emerald-500 mt-1">↑ 0.08 环比</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 店铺销售排行 + 商品销售排行 -->
+        <div class="grid grid-cols-2 gap-6">
+            <div class="glass-card rounded-2xl p-6 animate-fade-in" style="animation-delay:0.9s;">
+                <h3 class="text-lg font-bold text-slate-800 mb-4">店铺销售排行</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead><tr class="text-left text-sm text-slate-500 border-b border-slate-100"><th class="pb-3 font-medium">平台店铺</th><th class="pb-3 font-medium text-right">金额</th><th class="pb-3 font-medium text-right">订单数</th><th class="pb-3 font-medium text-right">件数</th></tr></thead>
+                        <tbody class="text-sm">
+                            <tr class="border-b border-slate-50"><td class="py-4"><div class="flex items-center gap-3"><div class="rank-badge rank-1">1</div><div class="w-8 h-8 rounded-lg bg-slate-900 flex items-center justify-center"><svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></div><span class="font-medium text-slate-700">抖音旗舰店</span></div></td><td class="py-4 text-right font-semibold">¥181,885</td><td class="py-4 text-right text-slate-600">753</td><td class="py-4 text-right text-slate-600">779</td></tr>
+                            <tr class="border-b border-slate-50"><td class="py-4"><div class="flex items-center gap-3"><div class="rank-badge rank-2">2</div><div class="w-8 h-8 rounded-lg bg-orange-500 flex items-center justify-center"><svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.223-.548.223l.188-2.623 4.823-4.351c.192-.192-.054-.3-.297-.108l-5.965 3.759-2.568-.802c-.56-.176-.571-.56.117-.828l10.037-3.869c.466-.174.875.108.713.827z"/></svg></div><span class="font-medium text-slate-700">天猫旗舰店</span></div></td><td class="py-4 text-right font-semibold">¥123,590</td><td class="py-4 text-right text-slate-600">373</td><td class="py-4 text-right text-slate-600">415</td></tr>
+                            <tr><td class="py-4"><div class="flex items-center gap-3"><div class="rank-badge rank-3">3</div><div class="w-8 h-8 rounded-lg bg-red-500 flex items-center justify-center text-white font-bold text-xs">微</div><span class="font-medium text-slate-700">微信小程序</span></div></td><td class="py-4 text-right font-semibold">¥339</td><td class="py-4 text-right text-slate-600">1</td><td class="py-4 text-right text-slate-600">1</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="glass-card rounded-2xl p-6 animate-fade-in" style="animation-delay:1s;">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-bold text-slate-800">商品销售排行</h3>
+                    <div class="flex bg-slate-100 rounded-lg p-1"><button class="px-3 py-1 rounded-md text-sm font-medium bg-white text-slate-700 shadow-sm">按金额</button><button class="px-3 py-1 rounded-md text-sm font-medium text-slate-500">按件数</button></div>
+                </div>
+                <div class="overflow-x-auto custom-scrollbar">
+                    <table class="w-full">
+                        <thead><tr class="text-left text-sm text-slate-500 border-b border-slate-100"><th class="pb-3 font-medium w-12">排名</th><th class="pb-3 font-medium">商品</th><th class="pb-3 font-medium text-right">金额</th><th class="pb-3 font-medium text-right">件数</th><th class="pb-3 font-medium text-right">退货率</th></tr></thead>
+                        <tbody class="text-sm">
+                            <tr class="border-b border-slate-50"><td class="py-4"><div class="rank-badge rank-1">1</div></td><td class="py-4"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-lg bg-gradient-to-br from-amber-100 to-orange-100 flex items-center justify-center flex-shrink-0"><svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg></div><div><div class="font-medium text-slate-800">皮荔枝纹水桶手提包...</div><span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-indigo-50 text-indigo-600 border border-indigo-200 mt-1">平台：抖音</span></div></div></td><td class="py-4 text-right font-semibold">¥67,726</td><td class="py-4 text-right text-slate-600">274</td><td class="py-4 text-right"><span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-emerald-50 text-emerald-600">15.3%</span></td></tr>
+                            <tr class="border-b border-slate-50"><td class="py-4"><div class="rank-badge rank-2">2</div></td><td class="py-4"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-lg bg-gradient-to-br from-slate-100 to-gray-200 flex items-center justify-center flex-shrink-0"><svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg></div><div><div class="font-medium text-slate-800">抽绳云朵包羊皮手提...</div><span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-orange-50 text-orange-600 border border-orange-200 mt-1">平台：天猫</span></div></div></td><td class="py-4 text-right font-semibold">¥49,762</td><td class="py-4 text-right text-slate-600">142</td><td class="py-4 text-right"><span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-rose-50 text-rose-600">28.7%</span></td></tr>
+                            <tr class="border-b border-slate-50"><td class="py-4"><div class="rank-badge rank-3">3</div></td><td class="py-4"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-lg bg-gradient-to-br from-slate-800 to-slate-900 flex items-center justify-center flex-shrink-0"><svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg></div><div><div class="font-medium text-slate-800">精致通勤五金扣软牛皮...</div><span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-indigo-50 text-indigo-600 border border-indigo-200 mt-1">平台：抖音</span></div></div></td><td class="py-4 text-right font-semibold">¥32,221</td><td class="py-4 text-right text-slate-600">89</td><td class="py-4 text-right"><span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-emerald-50 text-emerald-600">12.1%</span></td></tr>
+                            <tr><td class="py-4"><div class="rank-badge rank-other">4</div></td><td class="py-4"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-lg bg-gradient-to-br from-slate-100 to-gray-200 flex items-center justify-center flex-shrink-0"><svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg></div><div><div class="font-medium text-slate-800">抽绳云朵包羊皮手提...</div><span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-orange-50 text-orange-600 border border-orange-200 mt-1">平台：天猫</span></div></div></td><td class="py-4 text-right font-semibold">¥26,142</td><td class="py-4 text-right text-slate-600">76</td><td class="py-4 text-right"><span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-rose-50 text-rose-600">22.4%</span></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- 品类销售结构 -->
+        <div class="glass-card rounded-2xl p-6 mt-6 animate-fade-in" style="animation-delay:1.1s;">
+            <h3 class="text-lg font-bold text-slate-800 mb-4">品类销售结构</h3>
+            <div class="grid grid-cols-5 gap-4">
+                <div class="p-4 rounded-xl bg-gradient-to-br from-indigo-50 to-indigo-100 border border-indigo-200"><div class="flex items-center justify-between mb-2"><span class="text-sm font-medium text-indigo-700">手提包</span><span class="text-xs text-indigo-500">45%</span></div><div class="text-xl font-bold text-indigo-800">¥137,616</div><div class="mt-2 h-1.5 bg-indigo-200 rounded-full overflow-hidden"><div class="h-full w-[45%] bg-indigo-500 rounded-full"></div></div></div>
+                <div class="p-4 rounded-xl bg-gradient-to-br from-rose-50 to-rose-100 border border-rose-200"><div class="flex items-center justify-between mb-2"><span class="text-sm font-medium text-rose-700">单肩包</span><span class="text-xs text-rose-500">30%</span></div><div class="text-xl font-bold text-rose-800">¥91,744</div><div class="mt-2 h-1.5 bg-rose-200 rounded-full overflow-hidden"><div class="h-full w-[30%] bg-rose-400 rounded-full"></div></div></div>
+                <div class="p-4 rounded-xl bg-gradient-to-br from-amber-50 to-amber-100 border border-amber-200"><div class="flex items-center justify-between mb-2"><span class="text-sm font-medium text-amber-700">斜挎包</span><span class="text-xs text-amber-500">15%</span></div><div class="text-xl font-bold text-amber-800">¥45,872</div><div class="mt-2 h-1.5 bg-amber-200 rounded-full overflow-hidden"><div class="h-full w-[15%] bg-amber-400 rounded-full"></div></div></div>
+                <div class="p-4 rounded-xl bg-gradient-to-br from-emerald-50 to-emerald-100 border border-emerald-200"><div class="flex items-center justify-between mb-2"><span class="text-sm font-medium text-emerald-700">钱包</span><span class="text-xs text-emerald-500">7%</span></div><div class="text-xl font-bold text-emerald-800">¥21,407</div><div class="mt-2 h-1.5 bg-emerald-200 rounded-full overflow-hidden"><div class="h-full w-[7%] bg-emerald-400 rounded-full"></div></div></div>
+                <div class="p-4 rounded-xl bg-gradient-to-br from-cyan-50 to-cyan-100 border border-cyan-200"><div class="flex items-center justify-between mb-2"><span class="text-sm font-medium text-cyan-700">配饰</span><span class="text-xs text-cyan-500">3%</span></div><div class="text-xl font-bold text-cyan-800">¥9,174</div><div class="mt-2 h-1.5 bg-cyan-200 rounded-full overflow-hidden"><div class="h-full w-[3%] bg-cyan-400 rounded-full"></div></div></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        new Chart(document.getElementById('refundTrendChart').getContext('2d'), {
+            type: 'line',
+            data: {
+                labels: ['5/1','5/2','5/3','5/4','5/5','5/6','5/7'],
+                datasets: [{ label: '退款率', data: [28,32,26,35,29,31,30], borderColor: '#fb7185', backgroundColor: 'rgba(251,113,133,0.1)', tension: 0.4, fill: true, yAxisID: 'y' },
+                { label: '销售额', data: [45000,52000,48000,38000,55000,42000,305814], borderColor: '#818cf8', backgroundColor: 'rgba(129,140,248,0.1)', tension: 0.4, fill: true, yAxisID: 'y1' }]
+            },
+            options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, plugins: { legend: { display: false } },
+                scales: { y: { type: 'linear', display: true, position: 'left', ticks: { callback: v => v+'%', color: '#fb7185' }, grid: { color: 'rgba(0,0,0,0.05)' } },
+                    y1: { type: 'linear', display: true, position: 'right', ticks: { callback: v => '¥'+(v/1000)+'k', color: '#818cf8' }, grid: { drawOnChartArea: false } }, x: { grid: { display: false } } } }
+        });
+        new Chart(document.getElementById('channelChart').getContext('2d'), {
+            type: 'doughnut',
+            data: { labels: ['自播','达播','商城'], datasets: [{ data: [50,40,10], backgroundColor: ['#6366f1','#fb7185','#22d3ee'], borderWidth: 0, cutout: '70%' }] },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+        });
+        new Chart(document.getElementById('customerTypeChart').getContext('2d'), {
+            type: 'pie',
+            data: { labels: ['新客','老客'], datasets: [{ data: [65,35], backgroundColor: ['#6366f1','#34d399'], borderWidth: 2, borderColor: '#fff' }] },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+        });
+    </script>
+</body>
+</html>
