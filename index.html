@@ -270,136 +270,143 @@
     <script>
         // SKU维度商品数据
         const skuData = [
-            // 皮荔枝纹水桶手提包
-            { id: 1, skuCode: 'B26AD001', name: '皮荔枝纹水桶手提包', color: '黑色', category: '手提包', img: 'images/bucket-bag-black.jpg',
+            { id: 1, skuCode: 'B26AD001', name: '皮荔枝纹水桶手提包', color: '黑色', category: '手提包',
               salesAmount: 28500, salesQty: 98, paidAmount: 21200, paidQty: 72,
               preRefundRate: 7.2, postRefundRate: 18.5, spotRefundRate: 12.3, preSaleRefundRate: 28.6,
               spotStock: 45, purchaseInTransit: 80,
               channels: { douyin: { amount: 19000, qty: 65 }, tmall: { amount: 9500, qty: 33 }, wechat: { amount: 0, qty: 0 } } },
-            { id: 2, skuCode: 'B26AD002', name: '皮荔枝纹水桶手提包', color: '米白色', category: '手提包', img: 'images/bucket-bag-black.jpg',
+            { id: 2, skuCode: 'B26AD002', name: '皮荔枝纹水桶手提包', color: '米白色', category: '手提包',
               salesAmount: 24200, salesQty: 82, paidAmount: 18500, paidQty: 63,
               preRefundRate: 6.5, postRefundRate: 16.8, spotRefundRate: 11.2, preSaleRefundRate: 25.4,
               spotStock: 38, purchaseInTransit: 60,
               channels: { douyin: { amount: 16000, qty: 54 }, tmall: { amount: 8200, qty: 28 }, wechat: { amount: 0, qty: 0 } } },
-            { id: 3, skuCode: 'B26AD003', name: '皮荔枝纹水桶手提包', color: '棕色', category: '手提包', img: 'images/bucket-bag-black.jpg',
+            { id: 3, skuCode: 'B26AD003', name: '皮荔枝纹水桶手提包', color: '棕色', category: '手提包',
               salesAmount: 15026, salesQty: 52, paidAmount: 10296, paidQty: 36,
               preRefundRate: 8.8, postRefundRate: 21.5, spotRefundRate: 15.6, preSaleRefundRate: 32.1,
               spotStock: 22, purchaseInTransit: 40,
               channels: { douyin: { amount: 10000, qty: 31 }, tmall: { amount: 5026, qty: 21 }, wechat: { amount: 0, qty: 0 } } },
-            // 抽绳云朵包羊皮手提
-            { id: 4, skuCode: 'B26AD010', name: '抽绳云朵包羊皮手提', color: '黑色', category: '单肩包', img: 'images/cloud-bag-beige.jpg',
+            { id: 4, skuCode: 'B26AD010', name: '抽绳云朵包羊皮手提', color: '黑色', category: '单肩包',
               salesAmount: 18600, salesQty: 62, paidAmount: 13200, paidQty: 44,
               preRefundRate: 9.2, postRefundRate: 19.8, spotRefundRate: 14.5, preSaleRefundRate: 30.2,
               spotStock: 35, purchaseInTransit: 55,
               channels: { douyin: { amount: 6200, qty: 21 }, tmall: { amount: 12400, qty: 41 }, wechat: { amount: 0, qty: 0 } } },
-            { id: 5, skuCode: 'B26AD011', name: '抽绳云朵包羊皮手提', color: '米白色', category: '单肩包', img: 'images/cloud-bag-beige.jpg',
+            { id: 5, skuCode: 'B26AD011', name: '抽绳云朵包羊皮手提', color: '米白色', category: '单肩包',
               salesAmount: 16200, salesQty: 54, paidAmount: 11800, paidQty: 39,
               preRefundRate: 7.8, postRefundRate: 18.2, spotRefundRate: 13.2, preSaleRefundRate: 27.8,
               spotStock: 28, purchaseInTransit: 45,
               channels: { douyin: { amount: 5400, qty: 18 }, tmall: { amount: 10800, qty: 36 }, wechat: { amount: 0, qty: 0 } } },
-            { id: 6, skuCode: 'B26AD012', name: '抽绳云朵包羊皮手提', color: '灰色', category: '单肩包', img: 'images/cloud-bag-beige.jpg',
+            { id: 6, skuCode: 'B26AD012', name: '抽绳云朵包羊皮手提', color: '灰色', category: '单肩包',
               salesAmount: 14962, salesQty: 50, paidAmount: 10562, paidQty: 35,
               preRefundRate: 8.5, postRefundRate: 20.2, spotRefundRate: 15.1, preSaleRefundRate: 29.5,
               spotStock: 18, purchaseInTransit: 35,
               channels: { douyin: { amount: 3400, qty: 12 }, tmall: { amount: 11562, qty: 38 }, wechat: { amount: 0, qty: 0 } } },
-            // 精致通勤五金扣软牛皮
-            { id: 7, skuCode: 'B26AD020', name: '精致通勤五金扣软牛皮', color: '黑色', category: '手提包', img: 'images/tote-bag-brown.jpg',
+            { id: 7, skuCode: 'B26AD020', name: '精致通勤五金扣软牛皮', color: '黑色', category: '手提包',
               salesAmount: 15221, salesQty: 52, paidAmount: 11921, paidQty: 41,
               preRefundRate: 5.8, postRefundRate: 15.2, spotRefundRate: 10.5, preSaleRefundRate: 22.3,
               spotStock: 52, purchaseInTransit: 70,
               channels: { douyin: { amount: 13221, qty: 45 }, tmall: { amount: 2000, qty: 7 }, wechat: { amount: 0, qty: 0 } } },
-            { id: 8, skuCode: 'B26AD021', name: '精致通勤五金扣软牛皮', color: '棕色', category: '手提包', img: 'images/tote-bag-brown.jpg',
+            { id: 8, skuCode: 'B26AD021', name: '精致通勤五金扣软牛皮', color: '棕色', category: '手提包',
               salesAmount: 13000, salesQty: 44, paidAmount: 10200, paidQty: 35,
               preRefundRate: 6.2, postRefundRate: 14.8, spotRefundRate: 11.2, preSaleRefundRate: 21.5,
               spotStock: 40, purchaseInTransit: 55,
               channels: { douyin: { amount: 10000, qty: 34 }, tmall: { amount: 3000, qty: 10 }, wechat: { amount: 0, qty: 0 } } },
-            { id: 9, skuCode: 'B26AD022', name: '精致通勤五金扣软牛皮', color: '酒红色', category: '手提包', img: 'images/tote-bag-brown.jpg',
+            { id: 9, skuCode: 'B26AD022', name: '精致通勤五金扣软牛皮', color: '酒红色', category: '手提包',
               salesAmount: 4000, salesQty: 14, paidAmount: 3000, paidQty: 11,
               preRefundRate: 7.5, postRefundRate: 17.5, spotRefundRate: 12.8, preSaleRefundRate: 25.0,
               spotStock: 25, purchaseInTransit: 30,
               channels: { douyin: { amount: 5000, qty: 19 }, tmall: { amount: -1000, qty: -5 }, wechat: { amount: 0, qty: 0 } } },
-            // 大容量托特包通勤
-            { id: 10, skuCode: 'B26AD030', name: '大容量托特包通勤', color: '黑色', category: '手提包', img: 'images/tote-bag-brown.jpg',
+            { id: 10, skuCode: 'B26AD030', name: '大容量托特包通勤', color: '黑色', category: '手提包',
               salesAmount: 12500, salesQty: 42, paidAmount: 9500, paidQty: 32,
               preRefundRate: 6.5, postRefundRate: 18.0, spotRefundRate: 12.5, preSaleRefundRate: 26.8,
               spotStock: 60, purchaseInTransit: 90,
               channels: { douyin: { amount: 7500, qty: 25 }, tmall: { amount: 5000, qty: 17 }, wechat: { amount: 0, qty: 0 } } },
-            { id: 11, skuCode: 'B26AD031', name: '大容量托特包通勤', color: '米白色', category: '手提包', img: 'images/tote-bag-brown.jpg',
+            { id: 11, skuCode: 'B26AD031', name: '大容量托特包通勤', color: '米白色', category: '手提包',
               salesAmount: 9500, salesQty: 32, paidAmount: 7200, paidQty: 24,
               preRefundRate: 7.2, postRefundRate: 17.5, spotRefundRate: 13.2, preSaleRefundRate: 24.5,
               spotStock: 45, purchaseInTransit: 65,
               channels: { douyin: { amount: 5500, qty: 18 }, tmall: { amount: 4000, qty: 14 }, wechat: { amount: 0, qty: 0 } } },
-            { id: 12, skuCode: 'B26AD032', name: '大容量托特包通勤', color: '卡其色', category: '手提包', img: 'images/tote-bag-brown.jpg',
+            { id: 12, skuCode: 'B26AD032', name: '大容量托特包通勤', color: '卡其色', category: '手提包',
               salesAmount: 8150, salesQty: 28, paidAmount: 6300, paidQty: 22,
               preRefundRate: 5.8, postRefundRate: 18.2, spotRefundRate: 11.8, preSaleRefundRate: 27.2,
               spotStock: 38, purchaseInTransit: 50,
               channels: { douyin: { amount: 9000, qty: 12 }, tmall: { amount: 9000, qty: 11 }, wechat: { amount: 150, qty: 1 } } },
-            // 法式腋下包单肩
-            { id: 13, skuCode: 'B26AD040', name: '法式腋下包单肩', color: '银色', category: '单肩包', img: 'images/shoulder-bag-silver.jpg',
+            { id: 13, skuCode: 'B26AD040', name: '法式腋下包单肩', color: '银色', category: '单肩包',
               salesAmount: 10200, salesQty: 34, paidAmount: 7800, paidQty: 26,
               preRefundRate: 8.5, postRefundRate: 16.5, spotRefundRate: 12.8, preSaleRefundRate: 24.2,
               spotStock: 32, purchaseInTransit: 45,
               channels: { douyin: { amount: 6200, qty: 21 }, tmall: { amount: 4000, qty: 13 }, wechat: { amount: 0, qty: 0 } } },
-            { id: 14, skuCode: 'B26AD041', name: '法式腋下包单肩', color: '黑色', category: '单肩包', img: 'images/shoulder-bag-silver.jpg',
+            { id: 14, skuCode: 'B26AD041', name: '法式腋下包单肩', color: '黑色', category: '单肩包',
               salesAmount: 8300, salesQty: 28, paidAmount: 6400, paidQty: 22,
               preRefundRate: 7.2, postRefundRate: 15.8, spotRefundRate: 11.5, preSaleRefundRate: 22.8,
               spotStock: 28, purchaseInTransit: 40,
               channels: { douyin: { amount: 5300, qty: 18 }, tmall: { amount: 3000, qty: 10 }, wechat: { amount: 0, qty: 0 } } },
-            { id: 15, skuCode: 'B26AD042', name: '法式腋下包单肩', color: '金色', category: '单肩包', img: 'images/shoulder-bag-silver.jpg',
+            { id: 15, skuCode: 'B26AD042', name: '法式腋下包单肩', color: '金色', category: '单肩包',
               salesAmount: 5689, salesQty: 20, paidAmount: 4400, paidQty: 16,
               preRefundRate: 6.8, postRefundRate: 17.2, spotRefundRate: 12.5, preSaleRefundRate: 25.5,
               spotStock: 20, purchaseInTransit: 30,
               channels: { douyin: { amount: 7000, qty: 9 }, tmall: { amount: 8600, qty: 15 }, wechat: { amount: 89, qty: 1 } } },
-            // 复古马鞍包斜挎
-            { id: 16, skuCode: 'B26AD050', name: '复古马鞍包斜挎', color: '黑色', category: '斜挎包', img: 'images/shoulder-bag-silver.jpg',
+            { id: 16, skuCode: 'B26AD050', name: '复古马鞍包斜挎', color: '黑色', category: '斜挎包',
               salesAmount: 7200, salesQty: 24, paidAmount: 5500, paidQty: 18,
               preRefundRate: 7.5, postRefundRate: 16.2, spotRefundRate: 11.8, preSaleRefundRate: 23.5,
               spotStock: 42, purchaseInTransit: 55,
               channels: { douyin: { amount: 4200, qty: 14 }, tmall: { amount: 3000, qty: 10 }, wechat: { amount: 0, qty: 0 } } },
-            { id: 17, skuCode: 'B26AD051', name: '复古马鞍包斜挎', color: '棕色', category: '斜挎包', img: 'images/shoulder-bag-silver.jpg',
+            { id: 17, skuCode: 'B26AD051', name: '复古马鞍包斜挎', color: '棕色', category: '斜挎包',
               salesAmount: 6942, salesQty: 23, paidAmount: 5300, paidQty: 18,
               preRefundRate: 6.2, postRefundRate: 15.8, spotRefundRate: 10.5, preSaleRefundRate: 22.2,
               spotStock: 35, purchaseInTransit: 45,
               channels: { douyin: { amount: 4800, qty: 11 }, tmall: { amount: 5142, qty: 14 }, wechat: { amount: 0, qty: 0 } } },
-            // 迷你链条口红包
-            { id: 18, skuCode: 'B26AD060', name: '迷你链条口红包', color: '黑色', category: '钱包', img: 'images/cloud-bag-beige.jpg',
+            { id: 18, skuCode: 'B26AD060', name: '迷你链条口红包', color: '黑色', category: '钱包',
               salesAmount: 4800, salesQty: 24, paidAmount: 3700, paidQty: 18,
               preRefundRate: 5.8, postRefundRate: 14.5, spotRefundRate: 10.2, preSaleRefundRate: 20.5,
               spotStock: 55, purchaseInTransit: 70,
               channels: { douyin: { amount: 3000, qty: 15 }, tmall: { amount: 1800, qty: 9 }, wechat: { amount: 0, qty: 0 } } },
-            { id: 19, skuCode: 'B26AD061', name: '迷你链条口红包', color: '红色', category: '钱包', img: 'images/cloud-bag-beige.jpg',
+            { id: 19, skuCode: 'B26AD061', name: '迷你链条口红包', color: '红色', category: '钱包',
               salesAmount: 3707, salesQty: 18, paidAmount: 2800, paidQty: 14,
               preRefundRate: 4.5, postRefundRate: 15.2, spotRefundRate: 9.8, preSaleRefundRate: 21.2,
               spotStock: 40, purchaseInTransit: 50,
               channels: { douyin: { amount: 2500, qty: 12 }, tmall: { amount: 1207, qty: 6 }, wechat: { amount: 0, qty: 0 } } },
-            // 真皮短款钱包
-            { id: 20, skuCode: 'B26AD070', name: '真皮短款钱包', color: '黑色', category: '钱包', img: 'images/bucket-bag-black.jpg',
+            { id: 20, skuCode: 'B26AD070', name: '真皮短款钱包', color: '黑色', category: '钱包',
               salesAmount: 3500, salesQty: 18, paidAmount: 2800, paidQty: 14,
               preRefundRate: 4.8, postRefundRate: 12.5, spotRefundRate: 8.5, preSaleRefundRate: 18.2,
               spotStock: 65, purchaseInTransit: 80,
               channels: { douyin: { amount: 2000, qty: 10 }, tmall: { amount: 1500, qty: 8 }, wechat: { amount: 0, qty: 0 } } },
-            { id: 21, skuCode: 'B26AD071', name: '真皮短款钱包', color: '棕色', category: '钱包', img: 'images/bucket-bag-black.jpg',
+            { id: 21, skuCode: 'B26AD071', name: '真皮短款钱包', color: '棕色', category: '钱包',
               salesAmount: 2600, salesQty: 13, paidAmount: 2000, paidQty: 10,
               preRefundRate: 3.8, postRefundRate: 11.5, spotRefundRate: 7.8, preSaleRefundRate: 17.5,
               spotStock: 50, purchaseInTransit: 60,
               channels: { douyin: { amount: 1700, qty: 9 }, tmall: { amount: 900, qty: 4 }, wechat: { amount: 0, qty: 0 } } },
-            { id: 22, skuCode: 'B26AD072', name: '真皮短款钱包', color: '酒红色', category: '钱包', img: 'images/bucket-bag-black.jpg',
+            { id: 22, skuCode: 'B26AD072', name: '真皮短款钱包', color: '酒红色', category: '钱包',
               salesAmount: 1200, salesQty: 6, paidAmount: 900, paidQty: 5,
               preRefundRate: 5.0, postRefundRate: 12.5, spotRefundRate: 9.2, preSaleRefundRate: 18.5,
               spotStock: 35, purchaseInTransit: 40,
               channels: { douyin: { amount: 500, qty: 2 }, tmall: { amount: 600, qty: 3 }, wechat: { amount: 100, qty: 1 } } },
-            // 珍珠链条小包
-            { id: 23, skuCode: 'B26AD080', name: '珍珠链条小包', color: '米白色', category: '配饰', img: 'images/cloud-bag-beige.jpg',
+            { id: 23, skuCode: 'B26AD080', name: '珍珠链条小包', color: '米白色', category: '配饰',
               salesAmount: 2800, salesQty: 14, paidAmount: 2200, paidQty: 11,
               preRefundRate: 5.5, postRefundRate: 12.2, spotRefundRate: 8.8, preSaleRefundRate: 18.5,
               spotStock: 28, purchaseInTransit: 35,
               channels: { douyin: { amount: 1800, qty: 9 }, tmall: { amount: 1000, qty: 5 }, wechat: { amount: 0, qty: 0 } } },
-            { id: 24, skuCode: 'B26AD081', name: '珍珠链条小包', color: '粉色', category: '配饰', img: 'images/cloud-bag-beige.jpg',
+            { id: 24, skuCode: 'B26AD081', name: '珍珠链条小包', color: '粉色', category: '配饰',
               salesAmount: 1700, salesQty: 8, paidAmount: 1300, paidQty: 7,
               preRefundRate: 4.2, postRefundRate: 11.8, spotRefundRate: 8.2, preSaleRefundRate: 17.2,
               spotStock: 22, purchaseInTransit: 28,
               channels: { douyin: { amount: 700, qty: 4 }, tmall: { amount: 1000, qty: 4 }, wechat: { amount: 0, qty: 0 } } }
         ];
+
+        // 根据品类和颜色生成商品占位图
+        const categoryColors = {
+            '手提包': { bg: '#eef2ff', icon: '👜', border: '#c7d2fe' },
+            '单肩包': { bg: '#fff1f2', icon: '👜', border: '#fecdd3' },
+            '斜挎包': { bg: '#fefce8', icon: '👜', border: '#fef08a' },
+            '钱包':   { bg: '#f0fdf4', icon: '👛', border: '#bbf7d0' },
+            '配饰':   { bg: '#faf5ff', icon: '✨', border: '#e9d5ff' }
+        };
+        const colorMap = { '黑色': '#1e293b', '米白色': '#d4c5a9', '棕色': '#92400e', '灰色': '#6b7280', '酒红色': '#991b1b', '银色': '#9ca3af', '金色': '#d97706', '红色': '#dc2626', '卡其色': '#b8a07e', '粉色': '#ec4899' };
+        function getProductImg(p) {
+            const cat = categoryColors[p.category] || categoryColors['手提包'];
+            const c = colorMap[p.color] || '#64748b';
+            const initial = p.name.charAt(0);
+            return `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><rect fill="${cat.bg}" width="48" height="48" rx="8"/><rect x="1" y="1" width="46" height="46" rx="7" fill="none" stroke="${cat.border}" stroke-width="1"/><circle cx="24" cy="18" r="8" fill="${c}" opacity="0.85"/><rect x="14" y="28" width="20" height="3" rx="1.5" fill="${c}" opacity="0.3"/><rect x="18" y="33" width="12" height="2" rx="1" fill="${c}" opacity="0.2"/><text x="24" y="21" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="sans-serif">${initial}</text></svg>`)}`;
+        }
 
         // 渠道标签配色
         const channelMeta = {
@@ -434,13 +441,11 @@
                 const spotRefundClass = parseFloat(p.spotRefundRate) > 20 ? 'bg-rose-50 text-rose-600' : parseFloat(p.spotRefundRate) > 12 ? 'bg-amber-50 text-amber-600' : 'bg-emerald-50 text-emerald-600';
                 const preSaleRefundClass = parseFloat(p.preSaleRefundRate) > 30 ? 'bg-rose-50 text-rose-600' : parseFloat(p.preSaleRefundRate) > 22 ? 'bg-amber-50 text-amber-600' : 'bg-emerald-50 text-emerald-600';
                 
-                // 渠道标签
                 const channelTags = [];
                 if (p.channels.douyin.amount > 0) channelTags.push(`<span class="inline-flex items-center px-1.5 py-0.5 rounded text-xs ${channelMeta.douyin.tagClass}">抖</span>`);
                 if (p.channels.tmall.amount > 0) channelTags.push(`<span class="inline-flex items-center px-1.5 py-0.5 rounded text-xs ${channelMeta.tmall.tagClass}">猫</span>`);
                 if (p.channels.wechat.amount > 0) channelTags.push(`<span class="inline-flex items-center px-1.5 py-0.5 rounded text-xs ${channelMeta.wechat.tagClass}">微</span>`);
                 
-                // 库存状态
                 const stockClass = p.spotStock < 30 ? 'text-rose-500' : p.spotStock < 50 ? 'text-amber-500' : 'text-emerald-500';
                 const transitClass = p.purchaseInTransit > 50 ? 'text-emerald-500' : p.purchaseInTransit > 30 ? 'text-amber-500' : 'text-slate-500';
                 
@@ -449,7 +454,7 @@
                     <td class="py-3"><div class="rank-badge ${rankClass}">${index + 1}</div></td>
                     <td class="py-3">
                         <div class="flex items-center gap-3">
-                            <img src="${p.img}" alt="${p.name}" class="product-img" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 48 48%22><rect fill=%22%23f3f4f6%22 width=%2248%22 height=%2248%22/><text x=%2224%22 y=%2228%22 text-anchor=%22middle%22 fill=%22%239ca3af%22 font-size=%2212%22>商品</text></svg>'">
+                            <img src="${getProductImg(p)}" alt="${p.name}" class="product-img">
                             <div>
                                 <div class="font-medium text-slate-800">${p.name}</div>
                                 <div class="flex items-center gap-2 mt-0.5">
@@ -537,7 +542,6 @@
                 p.channels.wechat.amount, p.channels.wechat.qty
             ]);
             
-            // 汇总行
             const totals = sortedData.reduce((acc, p) => ({
                 salesAmount: acc.salesAmount + p.salesAmount,
                 salesQty: acc.salesQty + p.salesQty,
